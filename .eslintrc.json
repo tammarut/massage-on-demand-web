@@ -1,0 +1,11 @@
+{
+	"extends": ["eslint:recommended", "next/core-web-vitals", "next/typescript", "prettier"],
+	"rules": {
+		"react-hooks/exhaustive-deps": "warn"
+	},
+	"settings": {
+		"next": {
+			"rootDir": "./"
+		}
+	}
+}
