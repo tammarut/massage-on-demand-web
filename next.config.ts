@@ -1,7 +1,7 @@
 import type { NextConfig } from "next"
 
 // Environment variables validation
-const appEnv = process.env["APP_ENV"] || "development"
+const appEnv = process.env["APP_ENV"]
 const isProduction = appEnv === "production"
 
 // Security headers (OWASP recommended)
@@ -20,6 +20,10 @@ const nextConfig: NextConfig = {
 	reactStrictMode: true,
 	poweredByHeader: false,
 	trailingSlash: false, // or true, based on your routing preference
+	compiler: {
+		removeConsole: isProduction,
+	},
+
 	async headers() {
 		return [
 			{
