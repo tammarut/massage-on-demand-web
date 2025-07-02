@@ -42,5 +42,8 @@
 		"prettier": "^3.6.2",
 		"tailwindcss": "^4.1.11",
 		"typescript": "^5"
+	},
+	"volta": {
+		"node": "20.19.3"
 	}
 }
