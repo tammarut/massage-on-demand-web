@@ -9,10 +9,37 @@ const compat = new FlatCompat({
 	baseDirectory: __dirname,
 })
 
-const eslintConfig = [...compat.extends("next/core-web-vitals", "next/typescript")]
+export default (async () => {
+	const tsParser = (await import("@typescript-eslint/parser")).default
+	const tsPlugin = (await import("@typescript-eslint/eslint-plugin")).default
 
-export default {
-	ignores: ["**/*.js", "**/*.cjs", "**/*.mjs"],
-	files: ["**/*"],
-	...eslintConfig,
-}
+	return [
+		{
+			ignores: ["**/*.js", "**/*.cjs", "**/*.mjs"],
+			files: ["**/*"],
+		},
+		...compat.extends(
+			"next/core-web-vitals",
+			"plugin:@typescript-eslint/recommended",
+			"plugin:react/recommended",
+			"plugin:react-hooks/recommended",
+			"plugin:prettier/recommended"
+		),
+		{
+			languageOptions: {
+				parser: tsParser,
+				parserOptions: {
+					project: "./tsconfig.json",
+				},
+			},
+			plugins: {
+				"@typescript-eslint": tsPlugin,
+			},
+			rules: {
+				"@typescript-eslint/no-unused-vars": ["error"],
+				"react/react-in-jsx-scope": "off",
+				"react/jsx-filename-extension": [1, { extensions: [".tsx"] }],
+			},
+		},
+	]
+})()
